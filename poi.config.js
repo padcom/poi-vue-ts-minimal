@@ -1,10 +1,11 @@
 module.exports = {
+  entry: './src/index.ts',
   presets: [
-//    require('poi-preset-typescript')(),
-    require('poi-preset-karma')({
+    require('poi-preset-typescript')({
     }),
-  ],
-  karma: {
-    frameworks: [ 'chai' ],
-  },
+    require('poi-preset-karma')({
+      frameworks: [ 'mocha', 'chai' ],
+      files: [ 'test/unit/*.test.js' ]
+    }),
+  ]
 }

@@ -2,12 +2,15 @@
   "name": "poi-vue-hello",
   "version": "1.0.0",
   "scripts": {
-    "start": "poi src/index.js",
-    "build": "poi build src/index.js",
-    "test": "poi test"
+    "start": "poi",
+    "build": "poi build",
+    "test": "poi test",
+    "test:watch": "poi test --watch"
   },
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.44",
     "chai": "^4.1.2",
     "karma": "^1.7.1",
     "karma-chai": "^0.1.0",
