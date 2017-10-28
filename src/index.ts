@@ -2,21 +2,21 @@ import Pretender from 'pretender'
 
 var server = new Pretender()
 
-server.get('https://jsonplaceholder.typicode.com/posts/:id', server.passthrough)
-server.get('https://jsonplaceholder.typicode.com/posts/:id/comments', server.passthrough)
+//server.get('http://localhost:4000/posts/:id', server.passthrough)
+//server.get('http://localhost:4000/posts/:id/comments', server.passthrough)
 
-server.get('https://jsonplaceholder.typicode.com/posts/1', function(request: any) { 
+server.get('http://localhost:4000/posts/:id', function(request: any) {
   return [
-    200, { 'Content-Type': 'application/json' }, JSON.stringify({ 
-      id: 1, userId: 2, title: 'Post nr 1', body: 'Body of post nr 1' 
+    200, { 'Content-Type': 'application/json' }, JSON.stringify({
+      id: request.params.id, userId: 2, title: 'Post nr ' + request.params.id, body: 'Body of post nr ' + request.params.id
     })
   ]
 })
-server.get('https://jsonplaceholder.typicode.com/posts/1/comments', function(request: any) { 
+server.get('http://localhost:4000/posts/:id/comments', function(request: any) {
   return [
     200, { 'Content-Type': 'application/json' }, JSON.stringify([
-      { postId: 1, id: 1, name: 'John Doe', email: 'john.doe@investa.de', body: 'Comment 1' },
-      { postId: 1, id: 2, name: 'Jane Smith', email: 'jane.smith@capitalo.se', body: 'Comment 2' }
+      { postId: request.params.id, id: 1, name: 'John Doe', email: 'john.doe@investa.de', body: 'Comment 1 on post ' + request.params.id },
+      { postId: request.params.id, id: 2, name: 'Jane Smith', email: 'jane.smith@capitalo.se', body: 'Comment 2 on post ' + request.params.id }
     ])
   ]
 })
@@ -32,7 +32,8 @@ import axios from 'axios'
 Vue.use(injector)
 
 injector.constant('http', axios)
-injector.constant('baseURL', 'https://jsonplaceholder.typicode.com')
+//injector.constant('baseURL', 'https://jsonplaceholder.typicode.com')
+injector.constant('baseURL', 'http://localhost:4000')
 injector.service('api', API)
 
 const api: API = injector.get('api')

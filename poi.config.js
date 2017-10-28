@@ -13,7 +13,12 @@ module.exports = {
     return config
   },
   devServer: {
-    proxy: 'https://jsonplaceholder.typicode.com/posts'
+    proxy: {
+      '**': {
+        target: 'https://jsonplaceholder.typicode.com',
+        changeOrigin: true,
+      }
+    }
   },
 
   karma: {
@@ -21,7 +26,7 @@ module.exports = {
     frameworks: [
       'mocha', 'chai', 'karma-typescript'
     ],
-    reporters: [ 
+    reporters: [
       'mocha', 'karma-typescript'
     ],
     preprocessors: {
@@ -32,7 +37,6 @@ module.exports = {
       compilerOptions: {
         module: 'commonjs'
       },
-      exclude: [ 'node_modules' ]
     },
   }
 }
