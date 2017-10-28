@@ -22,17 +22,25 @@ export class API {
     this.http = http.create({ baseURL });
   }
 
+  private jsonToPost(data: any): Post {
+    return Object.assign(new Post(), data)
+  }
+
+  private jsonToComments(data: any): Array<Comment> {
+    return data.map((comment: Comment) => Object.assign(new Comment(), comment))
+  }
+
   /**
    * Load post data from remote service
    * @param id post id to load
    */
   loadPost (id: number): Promise<Post> {
     return this.http.get(`/posts/${id}`)
-      .then(response => Object.assign(new Post(), response.data))
+      .then(response => this.jsonToPost(response.data))
   }
 
   loadCommentsForPost (postId: number): Promise<Array<Comment>> {
     return this.http.get(`/posts/${postId}/comments`)
-      .then(response => response.data.map((comment: Comment) => Object.assign(new Comment(), comment)))
+      .then(response => this.jsonToComments(response.data))
   }
 }

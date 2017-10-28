@@ -4,3 +4,4 @@ declare module "*.vue" {
 }
 
 declare module 'vue-inject';
+declare module 'pretender';
